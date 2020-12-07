@@ -25,8 +25,7 @@ your programs, too.
 try:
 	import discord
 	import time
-	import colorama
-	import aat_arguments
+	import aat_utils
 	import os, sys
 except ImportError as Error:
 	print(f"ERROR     ]: Missing module: {Error.name}")
