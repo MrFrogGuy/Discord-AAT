@@ -26,6 +26,7 @@ try:
 	import discord
 	import time
 	import colorama
+	import aat_arguments
 	import os, sys
 except ImportError as Error:
 	print(f"ERROR     ]: Missing module: {Error.name}")
@@ -34,32 +35,22 @@ except ImportError as Error:
 # If error with import:
 	# conda install discord  || python3 -m pip install discord  || pip install discord
 	# conda install colorama || python3 -m pip install colorama || pip install colorama
+	# If aat_arguments is missing: wget https://raw.githubusercontent.com/MrFrogGuy/Discord-AAT/main/aat_arguments.py
 
-aatClient = discord.Client() 
-l_args = [
-	[colorama.Fore.RED, colorama.Fore.RESET],
-	[colorama.Fore.GREEN, colorama.Fore.RESET],
-	[colorama.Fore.YELLOW, colorama.Fore.RESET]
-]
-aatPrefix = "aat "
-
-is_self = lambda msg: True if msg.author == aatClient.user else False
-aerror = lambda msg: print("{}Error\t{}{}] {}".format(*l_args[0], time.strftime("%H:%M:%S"), msg))
-ainfo = lambda msg: print("{}Info\t{}{}] {}".format(*l_args[1], time.strftime("%H:%M:%S"), msg))
-awarning = lambda msg: print("{}Warning\t{}{}] {}".format(*l_args[2], time.strftime("%H:%M:%S"), msg))
+aatClient = discord.Client()
 
 def write_log(fname: str, logs: list, append=False, overwrite=True) -> bool:
 	if os.path.isfile(fname):
 		try:
 			descriptor = open(fname, "w") if overwrite and not append Else open(fname, "a")
 			descriptor.writelines(logs)
-			ainfo(f"Appended logs to: {fname}")
+			aat_arguments.ainfo(f"Appended logs to: {fname}")
 		except Exception as Error:
 			aerror(f)
 	else:
 		descriptor = open(fname, "w")
 		descriptor.writelines(logs)
-		ainfo(f"Wrote logs to: {fname}")
+		aat_arguments.ainfo(f"Wrote logs to: {fname}")
 		
 @aatClient.event
 async def on_message(mesg: discord.Message) -> None:
@@ -67,5 +58,8 @@ async def on_message(mesg: discord.Message) -> None:
 		arguments = mesg.content.strip(aatPrefix).split()
 		params = [None] # Limit, *
 		if arguments[0] in ["purge", "delete"]:
-			if "-d" in arguments:
-				pass
+			if "before" in arguments:
+				argdata = arguments.index("before") + 1
+				if "-" argdata and argdata.__len__ in [5, 4, 3]:
+					if aat_arguments.iter_arg(argdata, *aat_arguments.utc_args):
+						async for mesg in 
