@@ -43,13 +43,13 @@ def write_log(fname: str, logs: list, append=False, overwrite=True) -> bool:
 		try:
 			descriptor = open(fname, "w") if overwrite and not append Else open(fname, "a")
 			descriptor.writelines(logs)
-			aat_arguments.ainfo(f"Appended logs to: {fname}")
+			aat_utils.aat_arguments.ainfo(f"Appended logs to: {fname}")
 		except Exception as Error:
 			aerror(f)
 	else:
 		descriptor = open(fname, "w")
 		descriptor.writelines(logs)
-		aat_arguments.ainfo(f"Wrote logs to: {fname}")
+		aat_utils.aat_arguments.ainfo(f"Wrote logs to: {fname}")
 		
 @aatClient.event
 async def on_message(mesg: discord.Message) -> None:
@@ -60,5 +60,5 @@ async def on_message(mesg: discord.Message) -> None:
 			if "before" in arguments:
 				argdata = arguments.index("before") + 1
 				if "-" argdata and argdata.__len__ in [5, 4, 3]:
-					if aat_arguments.iter_arg(argdata, *aat_arguments.utc_args):
+					if aat_arguments.iter_arg(argdata, *aat_utils.aat_arguments.utc_args):
 						async for mesg in 
