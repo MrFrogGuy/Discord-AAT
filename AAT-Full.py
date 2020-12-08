@@ -32,10 +32,19 @@ except ImportError as Error:
 	exit(1)
 
 # If error with import:
-	# conda install discord  || python3 -m pip install discord  || pip install discord
-	# conda install colorama || python3 -m pip install colorama || pip install colorama
-	# If aat_arguments is missing: wget https://raw.githubusercontent.com/MrFrogGuy/Discord-AAT/main/aat_arguments.py
+"""
+conda install discord  || python3 -m pip install discord  || pip install discord
+conda install colorama || python3 -m pip install colorama || pip install colorama
+# If aat_arguments is missing: 
 
+ if [ -d aat_utils ]; then
+	 wget https://raw.githubusercontent.com/MrFrogGuy/Discord-AAT/main/aat_arguments.py -O \
+ 	aat_utils/aat_arguments.py
+else
+	mkdir aat_utils ; wget https://raw.githubusercontent.com/MrFrogGuy/Discord-AAT/main/aat_arguments.py -O \
+ 	aat_utils/aat_arguments.py
+fi
+"""
 aatClient = discord.Client()
 
 def write_log(fname: str, logs: list, append=False, overwrite=True) -> bool:
@@ -43,22 +52,39 @@ def write_log(fname: str, logs: list, append=False, overwrite=True) -> bool:
 		try:
 			descriptor = open(fname, "w") if overwrite and not append Else open(fname, "a")
 			descriptor.writelines(logs)
-			aat_utils.aat_arguments.ainfo(f"Appended logs to: {fname}")
+			aat_utils.args.ainfo(f"Appended logs to: {fname}")
 		except Exception as Error:
 			aerror(f)
 	else:
 		descriptor = open(fname, "w")
 		descriptor.writelines(logs)
-		aat_utils.aat_arguments.ainfo(f"Wrote logs to: {fname}")
+		aat_utils.args.ainfo(f"Wrote logs to: {fname}")
 		
+# No error returns, if you want error returns... Refer to aat_utils/misc.py
+# Copy the code for each error and place it here.
+# What I mean by this is: replying with an error embed &/ message when you've..
+# .... done something wrong or a command has failed to do its set task.
+
 @aatClient.event
 async def on_message(mesg: discord.Message) -> None:
 	if is_self(mesg) and mesg.content.startswith(aatPrefix):
 		arguments = mesg.content.strip(aatPrefix).split()
-		params = [None] # Limit, *
-		if arguments[0] in ["purge", "delete"]:
-			if "before" in arguments:
-				argdata = arguments.index("before") + 1
-				if "-" argdata and argdata.__len__ in [5, 4, 3]:
-					if aat_arguments.iter_arg(argdata, *aat_utils.aat_arguments.utc_args):
-						async for mesg in 
+		if arguments[0] in ["log", "save_chat"]:
+			coarg0, coarg1 = [aat_utils.args.cmd_arguments["writelog"],
+				aat_utils.args.cmd_arguments["chistory"]
+			]
+			log_list = []
+			if "-l" in arguments and aat_utils.args.has_args(arguments, "-l"):
+				data  = argfor(arguments, "-l")
+				if data.isdigit():
+					command_argument1["limit"] = int(argfor(data))
+				else:
+					return
+			if "-o" in arguments and aat_utils.args.has_args(arguments, "-o"):
+				command_argument0["fname"] = argfor(arguments, "-o")
+			async for message in mesg.channel.history(**coarg1):
+				log_list.append("[{} | {}]: {}".format(
+					"test",
+					"test",
+					"test"
+				))
