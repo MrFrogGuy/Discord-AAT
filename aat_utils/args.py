@@ -23,14 +23,17 @@ if not os.path.isdir('Chat-Logs'): os.mkdir('Chat-Logs')
 if not os.path.isdir('Delete-Logs'): os.mkdir('Delete-Logs')
 ainfo("Log paths set.")
 
+# While you may question why I'm using dict's, just keep in mind:
+# They're needed for positional arguments -> **
+
 cmd_arguments = {
-	"chistory": [
-		None, # Limit
-		None, # Before (UTC ex: 1-1-2020)
-		None, # After (UTC ex: 1-1-2020)
-		None, # Around (UTC ex: 1-1-2020)
-		False], # Oldest first | If set to True, return messages in oldest->newest order.
-	
+	"chistory": {
+		"limit":None, # Limit
+		"before":None, # Before (UTC ex: 1-1-2020)
+		"after":None, # After (UTC ex: 1-1-2020)
+		"around":None, # Around (UTC ex: 1-1-2020)
+		"oldest_first": True
+	}, # Oldest first | If set to True, return messages in oldest->newest order.
 	"log-down": [
 		None, # Limit
 		"Chat-Logs/chat.log"], # Directory/file,
