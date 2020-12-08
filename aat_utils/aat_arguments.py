@@ -17,13 +17,23 @@ aerror = lambda msg: print("{}Error\t{}{}] {}".format(*l_args[0], strftime(aatTF
 ainfo = lambda msg: print("{}Info\t{}{}] {}".format(*l_args[1], strftime(aatTFormat), msg))
 awarning = lambda msg: print("{}Warning\t{}{}] {}".format(*l_args[2], strftime(aatTFormat), msg))
 
+if not os.path.isdir('Chat-Logs'): os.mkdir('Chat-Logs')
+if not os.path.isdir('Delete-Logs'): os.mkdir('Delete-Logs')
 
-purge_arguments = {
-	"to_pass": [
+hist_arguments = {
+	"purge": [
 		None, # Limit
 		None, # Before (UTC ex: 1-1-2020)
 		None, # After (UTC ex: 1-1-2020)
 		None, # Around (UTC ex: 1-1-2020)
-		False # Oldest first | If set to True, return messages in oldest->newest order.
+		False], # Oldest first | If set to True, return messages in oldest->newest order.
+	
+	"log-down": [
+		None, # Limit
+		"Chat-Logs/chat.log"] # Directory/file,
+
+	"deleted_messages": [
+		None, # Limit
+		"Delete-Logs/Run_For-{}.del".format(aatLFormat) # Directory/File
 	]
 }
