@@ -21,6 +21,7 @@ awarning = lambda msg: print("{}Warning\t{}{}] {}".format(*l_args[2], strftime(a
 
 if not os.path.isdir('Chat-Logs'): os.mkdir('Chat-Logs')
 if not os.path.isdir('Delete-Logs'): os.mkdir('Delete-Logs')
+ainfo("Log paths set.")
 
 cmd_arguments = {
 	"purge": [
@@ -39,3 +40,5 @@ cmd_arguments = {
 		"Delete-Logs/Run_For-{}.del".format(aatLFormat) # Directory/File
 	]
 }
+
+ainfo("Argument library fully imported.")
