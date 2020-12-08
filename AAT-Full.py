@@ -77,14 +77,30 @@ async def on_message(mesg: discord.Message) -> None:
 			if "-l" in arguments and aat_utils.args.has_args(arguments, "-l"):
 				data  = argfor(arguments, "-l")
 				if data.isdigit():
-					command_argument1["limit"] = int(argfor(data))
+					coarg1["limit"] = int(argfor(data))
 				else:
 					return
 			if "-o" in arguments and aat_utils.args.has_args(arguments, "-o"):
-				command_argument0["fname"] = argfor(arguments, "-o")
-			async for message in mesg.channel.history(**coarg1):
+				coarg0["fname"] = argfor(arguments, "-o")
+			if coarg0['fname'] == "logs.log":
+				coarg0 = f"{str(mesg.channel)}-{time.strftime(aat_utils.args.aatLFormat)}"
+			async for message in mesg.channel.history(*coarg1):
 				log_list.append("[{} | {}]: {}".format(
-					"test",
-					"test",
-					"test"
-				))
+					message.creation_date,
+					message.author, message.content
+				) if message.content not in (None, "") else "[{} | {}]: {}".format(
+					message.creation_date,
+					message.author, message.type))
+			write_logs(**coarg0)
+		if arguments[0] == "purge":
+			limit = None
+			coarg0 = aat_utils.args.cmd_arguments["chistory"]
+			if "-l" in arguments and aat_utils.args.has_args(arguments, "-l"):
+				if aat_utils.args.argfor(arguments, "-l").isdigit():
+					coarg["limit"] = aat_utils.args.argfor(arguments, "-l")
+			try:
+				async for message in mesg.channel.history(**coarg1):
+					if is_self(message):
+						await message.delete()
+			except:
+				pass
