@@ -13,6 +13,7 @@ aatPrefix = "aat "  #Bot command prefix Example: aat purge [*args]
 
 
 is_self = lambda msg: True if msg.author == aatClient.user else False
+has_args = lambda lst, data: True if ( len(lst) > lst.index(data) + 1 ) else False
 aerror = lambda msg: print("{}Error\t{}{}] {}".format(*l_args[0], strftime(aatTFormat), msg))
 ainfo = lambda msg: print("{}Info\t{}{}] {}".format(*l_args[1], strftime(aatTFormat), msg))
 awarning = lambda msg: print("{}Warning\t{}{}] {}".format(*l_args[2], strftime(aatTFormat), msg))
