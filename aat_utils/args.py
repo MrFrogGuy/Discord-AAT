@@ -22,7 +22,7 @@ awarning = lambda msg: print("{}Warning\t{}{}] {}".format(*l_args[2], strftime(a
 if not os.path.isdir('Chat-Logs'): os.mkdir('Chat-Logs')
 if not os.path.isdir('Delete-Logs'): os.mkdir('Delete-Logs')
 
-hist_arguments = {
+cmd_arguments = {
 	"purge": [
 		None, # Limit
 		None, # Before (UTC ex: 1-1-2020)
