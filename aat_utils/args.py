@@ -24,7 +24,7 @@ if not os.path.isdir('Delete-Logs'): os.mkdir('Delete-Logs')
 ainfo("Log paths set.")
 
 cmd_arguments = {
-	"purge": [
+	"chistory": [
 		None, # Limit
 		None, # Before (UTC ex: 1-1-2020)
 		None, # After (UTC ex: 1-1-2020)
@@ -34,11 +34,12 @@ cmd_arguments = {
 	"log-down": [
 		None, # Limit
 		"Chat-Logs/chat.log"], # Directory/file,
-
-	"deleted_messages": [
-		None, # Limit
-		"Delete-Logs/Run_For-{}.del".format(aatLFormat) # Directory/File
-	]
+	"writelog": {
+		"fname": "logs.log",
+		"logs": [],
+		"append": False,
+		"overwrite": True
+	}
 }
 
 ainfo("Argument library fully imported.")
