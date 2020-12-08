@@ -30,7 +30,7 @@ hist_arguments = {
 	
 	"log-down": [
 		None, # Limit
-		"Chat-Logs/chat.log"] # Directory/file,
+		"Chat-Logs/chat.log"], # Directory/file,
 
 	"deleted_messages": [
 		None, # Limit
